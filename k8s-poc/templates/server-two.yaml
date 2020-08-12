@@ -7,6 +7,7 @@ metadata:
 data:
   SERVER_PORT: {{ .Values.serverTwoService.port | quote }}
   APP_NAME: "Crunchies"
+  SERVICE_NAME: {{ include "k8s-poc.fullname.server" . }}
 
 ---
 apiVersion: v1
@@ -57,11 +58,11 @@ spec:
             - name: http
               containerPort: {{ .Values.serverTwoService.port }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
