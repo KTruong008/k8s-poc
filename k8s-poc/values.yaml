@@ -1,0 +1,36 @@
+# General
+imagePullPolicy: "Always"
+
+# Server
+serverReplicasCount: 2
+serverImage: "ktruong008/k8s-poc:latest"
+serverService:
+  type: NodePort
+  port: 8000
+  nodePort: 30000
+serverTwoService:
+  type: NodePort
+  port: 8000
+  nodePort: 30001
+
+# Service Account 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# Ingress
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+# Misc
+service:
+  port: 80
+  type: ClusterIP

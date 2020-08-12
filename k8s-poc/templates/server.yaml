@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "k8s-poc.fullname.server" . }}
+  labels:
+    {{- include "k8s-poc.labels.server" . | nindent 4 }}
+data:
+  SERVER_PORT: {{ .Values.serverService.port | quote }}
+  APP_NAME: "Crispy"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8s-poc.fullname.server" . }}
+  labels:
+    {{- include "k8s-poc.labels.server" . | nindent 4 }}
+spec:
+  type: {{ .Values.serverService.type }}
+  ports:
+    - name: http
+      port: {{ .Values.serverService.port }}
+      targetPort: http
+      {{- if eq .Values.serverService.type "NodePort" }}
+      nodePort: {{ .Values.serverService.nodePort }}
+      {{- end }}
+      protocol: TCP
+  selector:
+    {{- include "k8s-poc.selectorLabels.server" . | nindent 4 }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8s-poc.fullname.server" . }}
+  labels:
+    {{- include "k8s-poc.labels.server" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.serverReplicasCount }}
+  selector:
+    matchLabels:
+      {{- include "k8s-poc.selectorLabels.server" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "k8s-poc.selectorLabels.server" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "k8s-poc.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.serverImage | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "k8s-poc.fullname.server" . }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.serverService.port }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http

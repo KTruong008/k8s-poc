@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "k8s-poc.fullname.serverTwo" . }}
+  labels:
+    {{- include "k8s-poc.labels.serverTwo" . | nindent 4 }}
+data:
+  SERVER_PORT: {{ .Values.serverTwoService.port | quote }}
+  APP_NAME: "Crunchies"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8s-poc.fullname.serverTwo" . }}
+  labels:
+    {{- include "k8s-poc.labels.serverTwo" . | nindent 4 }}
+spec:
+  type: {{ .Values.serverTwoService.type }}
+  ports:
+    - name: http
+      port: {{ .Values.serverTwoService.port }}
+      targetPort: http
+      {{- if eq .Values.serverTwoService.type "NodePort" }}
+      nodePort: {{ .Values.serverTwoService.nodePort }}
+      {{- end }}
+      protocol: TCP
+  selector:
+    {{- include "k8s-poc.selectorLabels.serverTwo" . | nindent 4 }}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "k8s-poc.fullname.serverTwo" . }}
+  labels:
+    {{- include "k8s-poc.labels.serverTwo" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.serverReplicasCount }}
+  selector:
+    matchLabels:
+      {{- include "k8s-poc.selectorLabels.serverTwo" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "k8s-poc.selectorLabels.serverTwo" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "k8s-poc.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.serverImage | quote }}
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "k8s-poc.fullname.serverTwo" . }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.serverTwoService.port }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
