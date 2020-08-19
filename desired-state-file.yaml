@@ -1,0 +1,34 @@
+context: "one-and-only"
+
+metadata:
+  maintainer: "Keylay Apps"
+  description: "Desired State File for k8s-poc"
+
+settings:
+  kubeContext: "kind-kind"
+
+namespaces:
+  default:
+    protected: false
+    labels:
+  production:
+    protected: false
+    labels:
+      env: "production"
+      managedBy: "Keylay Apps"
+  cert-manager:
+    protected: false
+    labels:
+      managedBy: "Keylay Apps"
+
+helmRepos:
+  stable: "https://kubernetes-charts.storage.googleapis.com/"
+  jetstack: "https://charts.jetstack.io"
+
+apps:
+  k8s-poc:
+    namespace: "default"
+    enabled: true
+    priority: 0
+    chart: "./k8s-poc"
+    version: 0.1.0
