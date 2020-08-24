@@ -1,8 +1,8 @@
-context: "one-and-only"
-
 metadata:
   maintainer: "Keylay Apps"
   description: "Desired State File for k8s-poc"
+
+context: "one-and-only"
 
 settings:
   kubeContext: "kind-kind"
@@ -11,11 +11,17 @@ namespaces:
   default:
     protected: false
     labels:
+      env: "staging"
   production:
     protected: false
     labels:
       env: "production"
       managedBy: "Keylay Apps"
+  traefik:
+    protected: false
+    labels:
+      managedBy: "Keylay Apps"
+      env: "staging"
   cert-manager:
     protected: false
     labels:
@@ -23,12 +29,13 @@ namespaces:
 
 helmRepos:
   stable: "https://kubernetes-charts.storage.googleapis.com/"
-  jetstack: "https://charts.jetstack.io"
+  # jetstack: "https://charts.jetstack.io"
+  traefik: "https://containous.github.io/traefik-helm-chart"
 
 apps:
   k8s-poc:
     namespace: "default"
-    enabled: true
+    enabled: false
     priority: 0
     chart: "./k8s-poc"
     version: 0.1.0
