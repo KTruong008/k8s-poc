@@ -17,7 +17,7 @@ spec:
   rules:
     - http:
         paths:
-        - path: /.*
-          backend:
-            serviceName: {{ include "k8s-poc.fullname.server" . }}
-            servicePort: {{ .Values.serverService.nodePort }}
+          - path: /.*
+            backend:
+              serviceName: {{ include "k8s-poc.fullname.server" . }}
+              servicePort: {{ .Values.serverService.port }}

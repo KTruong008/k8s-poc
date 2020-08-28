@@ -279,8 +279,9 @@ controller:
     # loadBalancerIP: ""
     loadBalancerSourceRanges: []
 
+    # @TODO
     enableHttp: true
-    enableHttps: true
+    enableHttps: false
 
     ## Set external traffic policy to: "Local" to preserve source IP on
     ## providers supporting it
@@ -304,6 +305,7 @@ controller:
       http: http
       https: https
 
+    # @TODO
     # type: LoadBalancer
     type: NodePort
 
@@ -365,8 +367,9 @@ controller:
   #   image: busybox
   #   command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
 
+  # @TODO
   admissionWebhooks:
-    enabled: true
+    enabled: false
     failurePolicy: Fail
     port: 8443
 

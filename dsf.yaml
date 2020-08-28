@@ -25,19 +25,19 @@ namespaces:
 
 helmRepos:
   stable: "https://kubernetes-charts.storage.googleapis.com/"
-  # jetstack: "https://charts.jetstack.io"
   ingress-nginx: "https://kubernetes.github.io/ingress-nginx"
+  # jetstack: "https://charts.jetstack.io"
 
 apps:
   k8s-poc:
-    name: "k8s-poc-6"
+    name: "k8s-poc-16"
     namespace: "default"
     enabled: false
     priority: 0
     chart: "./k8s-poc"
     version: 0.1.0
   ingress-nginx:
-    name: "ingress-nginx-6"
+    name: "ingress-nginx-16"
     namespace: "default"
     enabled: false
     priority: 0
