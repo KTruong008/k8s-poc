@@ -32,6 +32,10 @@ If release name contains chart name it will be used as a full name.
 {{ include "k8s-poc.fullname" . }}-server-two
 {{- end }}
 
+{{- define "k8s-poc.fullname.ingress" -}}
+{{ include "k8s-poc.fullname" . }}-ingress
+{{- end }}
+
 {{/*
 Create chart name and version as used by the chart label.
 */}}
@@ -61,6 +65,11 @@ component: "server"
 component: "server-two"
 {{- end }}
 
+{{- define "k8s-poc.labels.ingress" -}}
+{{ include "k8s-poc.labels" . }}
+component: "ingress"
+{{- end }}
+
 {{/*
 Selector labels
 */}}
@@ -77,6 +86,11 @@ component: "server"
 {{- define "k8s-poc.selectorLabels.serverTwo" -}}
 {{ include "k8s-poc.selectorLabels" . }}
 component: "server-two"
+{{- end }}
+
+{{- define "k8s-poc.selectorLabels.ingress" -}}
+{{ include "k8s-poc.selectorLabels" . }}
+component: "ingress"
 {{- end }}
 
 {{/*

@@ -1,3 +1,4 @@
+# Desired State File
 metadata:
   maintainer: "Keylay Apps"
   description: "Desired State File for k8s-poc"
@@ -17,11 +18,6 @@ namespaces:
     labels:
       env: "production"
       managedBy: "Keylay Apps"
-  traefik:
-    protected: false
-    labels:
-      managedBy: "Keylay Apps"
-      env: "staging"
   cert-manager:
     protected: false
     labels:
@@ -30,12 +26,21 @@ namespaces:
 helmRepos:
   stable: "https://kubernetes-charts.storage.googleapis.com/"
   # jetstack: "https://charts.jetstack.io"
-  traefik: "https://containous.github.io/traefik-helm-chart"
+  ingress-nginx: "https://kubernetes.github.io/ingress-nginx"
 
 apps:
   k8s-poc:
+    name: "k8s-poc-6"
     namespace: "default"
     enabled: false
     priority: 0
     chart: "./k8s-poc"
     version: 0.1.0
+  ingress-nginx:
+    name: "ingress-nginx-6"
+    namespace: "default"
+    enabled: false
+    priority: 0
+    chart: "ingress-nginx/ingress-nginx"
+    version: 2.12.0
+    valuesFile: "./k8s-poc/ingress-nginx-values.yaml"
