@@ -30,14 +30,14 @@ helmRepos:
 
 apps:
   k8s-poc:
-    name: "k8s-poc-16"
+    name: "k8s-poc-1"
     namespace: "default"
     enabled: false
     priority: 0
     chart: "./k8s-poc"
-    version: 0.1.0
+    version: 0.4.0
   ingress-nginx:
-    name: "ingress-nginx-16"
+    name: "ingress-nginx-1"
     namespace: "default"
     enabled: false
     priority: 0
