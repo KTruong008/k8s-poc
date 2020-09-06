@@ -19,5 +19,5 @@ spec:
         paths:
           - path: /.*
             backend:
-              serviceName: {{ include "k8s-poc.fullname.serverTwo" . }}
-              servicePort: {{ .Values.serverTwoService.port}}
+              serviceName: {{ include "k8s-poc.fullname.server" . }}
+              servicePort: {{ .Values.serverService.port}}
