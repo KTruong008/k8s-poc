@@ -306,8 +306,8 @@ controller:
       https: https
 
     # @TODO
-    # type: LoadBalancer
-    type: NodePort
+    type: LoadBalancer
+    # type: NodePort
 
     # type: NodePort
     # nodePorts:

@@ -8,6 +8,7 @@ data:
   SERVER_PORT: {{ .Values.serverService.port | quote }}
   APP_NAME: "Crispy"
   SERVICE_NAME: {{ include "k8s-poc.fullname.server" . }}
+  HASURA_BASE_URL: "hasura.default.svc.cluster.local:80"
 
 ---
 apiVersion: v1

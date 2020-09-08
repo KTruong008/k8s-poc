@@ -3,7 +3,7 @@ imagePullPolicy: "Always"
 
 # Server
 serverReplicasCount: 1
-serverImage: "ktruong008/k8s-poc:1.0.6"
+serverImage: "ktruong008/k8s-poc:1.0.7"
 serverService:
   type: NodePort
   port: 8000

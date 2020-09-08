@@ -6,7 +6,8 @@ metadata:
 context: "one-and-only"
 
 settings:
-  kubeContext: "kind-kind"
+  # kubeContext: "kind-kind"
+  kubeContext: "do-tor1-k8s-1-18-8-do-0-tor1-1599488885962"
 
 namespaces:
   default:
@@ -30,16 +31,16 @@ helmRepos:
 
 apps:
   k8s-poc:
-    name: "k8s-poc-1"
+    name: "k8s-poc-14"
     namespace: "default"
-    enabled: false
+    enabled: true
     priority: 0
     chart: "./k8s-poc"
-    version: 0.4.0
+    version: 0.11.0
   ingress-nginx:
-    name: "ingress-nginx-1"
+    name: "ingress-nginx-14"
     namespace: "default"
-    enabled: false
+    enabled: true
     priority: 0
     chart: "ingress-nginx/ingress-nginx"
     version: 2.12.0
