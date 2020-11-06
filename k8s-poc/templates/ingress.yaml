@@ -10,10 +10,10 @@ metadata:
     # cert-manager.io/cluster-issuer: "letsencrypt-prod"
   
 spec:
-  # tls:
-  #   - hosts:
-  #     - ccs.keylayapps.com
-  #     secretName: ccs-tls
+  tls:
+    - hosts:
+      - poc.keylayapps.com
+      secretName: poc-tls
   rules:
     - http:
         paths:
@@ -22,7 +22,7 @@ spec:
             backend:
               serviceName: {{ include "k8s-poc.fullname.server" . }}
               servicePort: {{ .Values.serverService.port}}
-          - path: /three(/|$)(.*)
+          - path: /two(/|$)(.*)
             pathType: Prefix
             backend:
               serviceName: {{ include "k8s-poc.fullname.serverTwo" . }}

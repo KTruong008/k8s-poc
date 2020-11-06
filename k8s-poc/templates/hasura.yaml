@@ -40,7 +40,7 @@ spec:
         name: hasura
         env:
         - name: HASURA_GRAPHQL_DATABASE_URL
-          value: postgresql://doadmin:b5nraevj1nalkies@db-postgresql-tor1-78172-do-user-7982734-0.a.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          value: postgresql://doadmin:x7pv65us35l4b2xf@db-postgresql-tor1-24156-do-user-8256064-0.b.db.ondigitalocean.com:25060/k8s-poc?sslmode=require
         ## enable the console served by server
         - name: HASURA_GRAPHQL_ENABLE_CONSOLE
           value: "true"

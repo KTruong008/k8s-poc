@@ -281,7 +281,7 @@ controller:
 
     # @TODO
     enableHttp: true
-    enableHttps: false
+    enableHttps: true
 
     ## Set external traffic policy to: "Local" to preserve source IP on
     ## providers supporting it
@@ -367,7 +367,6 @@ controller:
   #   image: busybox
   #   command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
 
-  # @TODO
   admissionWebhooks:
     enabled: false
     failurePolicy: Fail
