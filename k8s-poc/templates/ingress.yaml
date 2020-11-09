@@ -12,10 +12,11 @@ metadata:
 spec:
   tls:
     - hosts:
-      - poc.keylayapps.com
+      - pocs.keylayapps.com
       secretName: poc-tls
   rules:
-    - http:
+    - host: pocs.keylayapps.com
+      http:
         paths:
           - path: /()(.*)
             pathType: Prefix
