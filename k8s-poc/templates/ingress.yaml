@@ -12,8 +12,9 @@ metadata:
 spec:
   tls:
     - hosts:
-      - pocs.keylayapps.com
-      secretName: poc-tls
+        - pocs.keylayapps.com
+        - pocs-two.keylayapps.com
+      secretName: pocs-tls
   rules:
     - host: pocs.keylayapps.com
       http:
@@ -23,13 +24,21 @@ spec:
             backend:
               serviceName: {{ include "k8s-poc.fullname.server" . }}
               servicePort: {{ .Values.serverService.port}}
-          - path: /two(/|$)(.*)
-            pathType: Prefix
-            backend:
-              serviceName: {{ include "k8s-poc.fullname.serverTwo" . }}
-              servicePort: {{ .Values.serverTwoService.port}}
+          # - path: /two(/|$)(.*)
+          #   pathType: Prefix
+          #   backend:
+          #     serviceName: {{ include "k8s-poc.fullname.serverTwo" . }}
+          #     servicePort: {{ .Values.serverTwoService.port}}
           - path: /hasura(/|$)(.*)
             pathType: Prefix
             backend:
               serviceName: hasura
               servicePort: 80
+    - host: pocs-two.keylayapps.com
+      http:
+        paths:
+          - path: /()(.*)
+            pathType: Prefix
+            backend:
+              serviceName: {{ include "k8s-poc.fullname.serverTwo" . }}
+              servicePort: {{ .Values.serverTwoService.port}}

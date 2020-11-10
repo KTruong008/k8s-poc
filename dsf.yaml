@@ -7,7 +7,7 @@ context: "one-and-only"
 
 # settings:
 #   # kubeContext: "kind-kind"
-#   kubeContext: "do-tor1-k8s-1-18-8-do-0-tor1-1599488885962"
+#   kubeContext: "do-tor1-k8s-1-18-8-do-0-tor1-1599488885961"
 
 namespaces:
   default:
@@ -30,39 +30,40 @@ helmRepos:
   jetstack: "https://charts.jetstack.io"
 
 apps:
+  # https://cert-manager.io/docs/tutorials/acme/ingress
   k8s-poc-crds:
-    name: "k8s-poc-crds-1"
+    name: "k8s-poc-crds-2"
     namespace: "cert-manager"
-    enabled: true
+    enabled: false
     chart: "./k8s-poc-crds"
     priority: -5
     version: 0.1.0
   ingress-nginx:
-    name: "ingress-nginx-1"
+    name: "ingress-nginx-2"
     namespace: "default"
-    enabled: true
+    enabled: false
     priority: -4
     chart: "ingress-nginx/ingress-nginx"
     version: 2.12.0
     valuesFile: "./k8s-poc/ingress-nginx-values.yaml"
   # Assign DNS...
   k8s-poc:
-    name: "k8s-poc-1"
+    name: "k8s-poc-2"
     namespace: "default"
-    enabled: true
+    enabled: false
     priority: 0
     chart: "./k8s-poc"
     version: 0.11.0
   # Check ingress... kubectl get ingress. Check address is assigned.
   cert-manager:
-    name: "cert-manager-1"
+    name: "cert-manager-2"
     namespace: "cert-manager"
     enabled: false
     priority: -2
     chart: "jetstack/cert-manager"
     version: 1.0.2
   k8s-poc-issuer:
-    name: "k8s-poc-issuer-1"
+    name: "k8s-poc-issuer-2"
     namespace: "cert-manager"
     enabled: false
     chart: "./k8s-poc-issuer"
